@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
-import { Target, TrendingUp, Clock, Zap, ChevronRight, Check, Play, Lock, Star, Trophy, Bolt } from "lucide-react";
+import { Target, TrendingUp, Clock, Zap, ChevronRight, Check, Play, Lock, Star, Trophy, Bolt, Grid2x2, LayoutGrid, GitFork, FunctionSquare, Sigma, Infinity } from "lucide-react";
 
 function CircularProgress({ value }: { value: number }) {
   const r = 52;
@@ -57,22 +57,51 @@ function AreaChart() {
   );
 }
 
-const LEARNING_PATH_ROWS = [
+const LEARNING_PATH_ROWS: Array<Array<'done' | 'current' | 'locked' | 'star'>> = [
   ["done", "done", "done", "done"],
-  ["done", "done", "current", "current"],
-  ["locked", "locked", "locked", "locked"],
+  ["done", "done", "done"],
+  ["current", "current", "current", "current"],
+  ["locked", "locked", "locked"],
+  ["locked", "locked", "locked", "star"],
 ];
 
 const UPCOMING_SESSIONS = [
-  { date: "24", month: "Thu", title: "Calculus Review", color: "bg-blue-500" },
-  { date: "26", month: "Tue", title: "Algebra 101 Quiz", color: "bg-green-500" },
-  { date: "27", month: "Wed", title: "Group Study", color: "bg-orange-400" },
+  { date: "24", month: "APR", title: "Calculus Review", sub: "4:00", bg: "bg-green-100", color: "text-green-700" },
+  { date: "26", month: "APR", title: "Algebra 101 Quiz", sub: "09:00 · Lab Session", bg: "bg-blue-100", color: "text-blue-700" },
+  { date: "27", month: "APR", title: "Group Study", sub: "2:30", bg: "bg-purple-100", color: "text-purple-700" },
 ];
 
 const MODULES = [
-  { title: "Systems of Equations", subtitle: "Advanced Algebra • 4 problems left", progress: 78 },
-  { title: "Factoring", subtitle: "Advanced Algebra • to join class", progress: 45 },
-  { title: "Domain & Range", subtitle: "Fundamental Concept", progress: 60 },
+  {
+    title: "Systems of Equations",
+    subtitle: "Linear substitution & elimination.",
+    progress: 75,
+    icon: Grid2x2,
+    iconBg: "bg-green-100",
+    iconColor: "text-green-600",
+    progressColor: "bg-green-500",
+    progressLabel: "text-green-600",
+  },
+  {
+    title: "Factoring",
+    subtitle: "Quadratic equations & polynomials.",
+    progress: 40,
+    icon: LayoutGrid,
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-500",
+    progressColor: "bg-blue-500",
+    progressLabel: "text-blue-500",
+  },
+  {
+    title: "Domain & Range",
+    subtitle: "Functional analysis basics.",
+    progress: 90,
+    icon: GitFork,
+    iconBg: "bg-purple-100",
+    iconColor: "text-purple-500",
+    progressColor: "bg-purple-500",
+    progressLabel: "text-purple-500",
+  },
 ];
 
 export function Home() {
@@ -123,16 +152,18 @@ export function Home() {
           </div>
 
           <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-            <h2 className="text-[15px] font-semibold text-gray-900 mb-4">Upcoming Sessions</h2>
-            <div className="flex flex-col gap-3">
+            <h2 className="text-[17px] font-semibold text-gray-900 mb-4">Upcoming Sessions</h2>
+            <div className="flex flex-col divide-y divide-gray-100">
               {UPCOMING_SESSIONS.map(s => (
-                <div key={s.date} className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-gray-200 transition-colors">
-                  <div className={`${s.color} text-white w-10 h-10 rounded-lg flex flex-col items-center justify-center text-[10px] font-bold shrink-0`}>
-                    <span className="text-[11px]">{s.month}</span>
-                    <span className="text-[14px] leading-none">{s.date}</span>
+                <div key={s.date} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
+                  <div className={`${s.bg} ${s.color} w-14 rounded-xl flex flex-col items-center justify-center py-2 shrink-0`}>
+                    <span className="text-[10px] font-bold uppercase tracking-wider">{s.month}</span>
+                    <span className="text-[20px] font-bold leading-tight">{s.date}</span>
                   </div>
-                  <span className="text-[13px] font-medium text-gray-700">{s.title}</span>
-                  <ChevronRight className="w-4 h-4 text-gray-300 ml-auto" />
+                  <div>
+                    <div className="text-[14px] font-semibold text-gray-900">{s.title}</div>
+                    <div className="text-[12px] text-gray-400 mt-0.5">{s.sub}</div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -145,30 +176,36 @@ export function Home() {
               <span className="text-[10px] bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full uppercase tracking-wide">Knowledge Map</span>
             </div>
             <h2 className="text-[15px] font-semibold text-gray-900 mb-1">Learning Path</h2>
-            <p className="text-[12px] text-gray-400 mb-5">Navigate through your mathematical journey</p>
+            <p className="text-[12px] text-gray-400 mb-4">Navigate through your mathematical journey</p>
 
-            <div className="flex flex-col gap-3">
+            {/* Legend */}
+            <div className="flex items-center gap-6 mb-5 text-[12px] text-gray-600">
+              <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Completed</div>
+              <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-blue-500" /> Current</div>
+              <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-gray-400" /> Locked</div>
+            </div>
+
+            {/* Path grid */}
+            <div className="bg-gray-50 rounded-2xl p-6 flex flex-col gap-4">
               {LEARNING_PATH_ROWS.map((row, ri) => (
-                <div key={ri} className="flex gap-3 justify-center">
+                <div key={ri} className="relative flex items-center justify-center gap-4">
+                  {/* dashed connector line */}
+                  <div className="absolute inset-y-1/2 left-8 right-8 border-t-2 border-dashed border-gray-300 -translate-y-1/2 z-0" />
                   {row.map((state, ci) => (
-                    <div key={ci} className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all ${
-                      state === 'done' ? 'bg-primary text-white shadow-sm' :
-                      state === 'current' ? 'bg-blue-100 text-blue-600 border-2 border-blue-300' :
-                      'bg-gray-100 text-gray-300'
+                    <div key={ci} className={`relative z-10 w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm transition-all ${
+                      state === 'done'    ? 'bg-emerald-400 text-white' :
+                      state === 'current' ? 'bg-blue-500 text-white' :
+                      state === 'star'    ? 'bg-amber-400 text-white' :
+                                           'bg-gray-300 text-white'
                     }`}>
-                      {state === 'done' ? <Check className="w-5 h-5" /> :
-                       state === 'current' ? <Play className="w-5 h-5 fill-current" /> :
-                       <Lock className="w-5 h-5" />}
+                      {state === 'done'    && <Check className="w-6 h-6 stroke-[2.5]" />}
+                      {state === 'current' && <Play className="w-5 h-5 fill-white" />}
+                      {state === 'locked'  && <Lock className="w-5 h-5" />}
+                      {state === 'star'    && <Star className="w-6 h-6 fill-white" />}
                     </div>
                   ))}
                 </div>
               ))}
-            </div>
-
-            <div className="flex items-center gap-6 mt-5 text-[12px] text-gray-500">
-              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-primary" /> Completed</div>
-              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-blue-300" /> Current</div>
-              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-gray-300" /> Locked</div>
             </div>
           </div>
 
@@ -177,15 +214,16 @@ export function Home() {
             <p className="text-[12px] text-gray-400 mb-4">3 of 6 unlocked</p>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { icon: Star, color: "bg-amber-100 text-amber-500" },
-                { icon: Trophy, color: "bg-green-100 text-green-600" },
-                { icon: Bolt, color: "bg-blue-100 text-blue-500" },
-                { color: "bg-gray-100 text-gray-300", locked: true },
-                { color: "bg-gray-100 text-gray-300", locked: true },
-                { color: "bg-gray-100 text-gray-300", locked: true },
+                { icon: Star, bg: "bg-amber-400", color: "text-white" },
+                { icon: Trophy, bg: "bg-green-500", color: "text-white" },
+                { icon: Bolt, bg: "bg-blue-500", color: "text-white" },
+                { icon: null, bg: "bg-gray-100", color: "text-gray-300", locked: true },
+                { icon: null, bg: "bg-gray-100", color: "text-gray-300", locked: true },
+                { icon: null, bg: "bg-gray-100", color: "text-gray-300", locked: true },
               ].map((badge, i) => (
-                <div key={i} className={`${badge.color} w-14 h-14 rounded-xl flex items-center justify-center`}>
+                <div key={i} className={`${badge.bg} ${badge.color} w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm`}>
                   {!badge.locked && badge.icon && <badge.icon className="w-7 h-7" />}
+                  {badge.locked && <Lock className="w-5 h-5 text-gray-300" />}
                 </div>
               ))}
             </div>
@@ -199,13 +237,19 @@ export function Home() {
           </div>
           <div className="grid grid-cols-3 gap-5">
             {MODULES.map((mod) => (
-              <div key={mod.title} className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-                <div className="text-[14px] font-semibold text-gray-900 mb-1">{mod.title}</div>
+              <div key={mod.title} className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                <div className={`${mod.iconBg} ${mod.iconColor} w-11 h-11 rounded-xl flex items-center justify-center mb-4`}>
+                  <mod.icon className="w-5 h-5" />
+                </div>
+                <div className="text-[15px] font-semibold text-gray-900 mb-1">{mod.title}</div>
                 <div className="text-[12px] text-gray-500 mb-4">{mod.subtitle}</div>
                 <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-primary rounded-full" style={{ width: `${mod.progress}%` }} />
+                  <div className={`h-full ${mod.progressColor} rounded-full`} style={{ width: `${mod.progress}%` }} />
                 </div>
-                <div className="text-[11px] text-gray-400 mt-1.5">{mod.progress}%</div>
+                <div className="flex items-center justify-between mt-2">
+                  <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Progress</span>
+                  <span className={`text-[12px] font-bold ${mod.progressLabel}`}>{mod.progress}%</span>
+                </div>
               </div>
             ))}
           </div>

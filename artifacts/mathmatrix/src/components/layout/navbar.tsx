@@ -38,7 +38,7 @@ export function Navbar() {
   const isDark = theme === "dark";
 
   return (
-    <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-50">
+    <header className="w-full border-b border-border bg-background sticky top-0 z-50">
       <div className="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center gap-2.5">

@@ -1,37 +1,37 @@
 import React, { useState } from "react";
-import { Play, Download, Volume2 } from "lucide-react";
+import { Play, Download } from "lucide-react";
 import { ResourceSidebar } from "@/components/layout/resource-sidebar";
 
 const CATEGORIES = ["Algebra", "Geometry", "Pre-Calculus", "Calculus"];
 
-const VIDEO_GRID: Record<string, { title: string; duration: string; bg: string; emoji: string }[]> = {
+const VIDEO_GRID: Record<string, { title: string; duration: string; img: string }[]> = {
   Algebra: [
-    { title: "Foundations of Algebra", duration: "18:24", bg: "bg-amber-100", emoji: "🧮" },
-    { title: "Linear Functions", duration: "12:45", bg: "bg-blue-100", emoji: "📈" },
-    { title: "Systems of Equations", duration: "12:45", bg: "bg-indigo-100", emoji: "🔢" },
-    { title: "Polynomials & Factoring", duration: "12:45", bg: "bg-teal-100", emoji: "✏️" },
-    { title: "Quadratic Functions", duration: "22:10", bg: "bg-green-100", emoji: "🟢" },
+    { title: "Foundations of Algebra", duration: "18:24", img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=340&fit=crop" },
+    { title: "Linear Functions", duration: "12:45", img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&h=340&fit=crop" },
+    { title: "Systems of Equations", duration: "12:45", img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=340&fit=crop" },
+    { title: "Polynomials & Factoring", duration: "12:45", img: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?w=600&h=340&fit=crop" },
+    { title: "Quadratic Functions", duration: "22:10", img: "https://images.unsplash.com/photo-1635070041409-e63e783ce3c1?w=600&h=340&fit=crop" },
   ],
   Geometry: [
-    { title: "Foundations of Geometry", duration: "18:24", bg: "bg-purple-100", emoji: "📐" },
-    { title: "Congruence & Proof", duration: "12:45", bg: "bg-blue-100", emoji: "🔷" },
-    { title: "Similarity & Trigonometry", duration: "12:45", bg: "bg-rose-100", emoji: "📏" },
-    { title: "Circles & Conic Sections", duration: "12:45", bg: "bg-orange-100", emoji: "⭕" },
-    { title: "Area, Volume, & Modeling", duration: "22:10", bg: "bg-cyan-100", emoji: "📦" },
+    { title: "Foundations of Geometry", duration: "18:24", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=340&fit=crop" },
+    { title: "Congruence & Proof", duration: "12:45", img: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=600&h=340&fit=crop" },
+    { title: "Similarity & Trigonometry", duration: "12:45", img: "https://images.unsplash.com/photo-1635070041409-e63e783ce3c1?w=600&h=340&fit=crop" },
+    { title: "Circles & Conic Sections", duration: "12:45", img: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=600&h=340&fit=crop" },
+    { title: "Area, Volume, & Modeling", duration: "22:10", img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&h=340&fit=crop" },
   ],
   "Pre-Calculus": [
-    { title: "Functions & Analysis", duration: "18:24", bg: "bg-violet-100", emoji: "📊" },
-    { title: "Trigonometric Foundations", duration: "18:24", bg: "bg-amber-100", emoji: "🌊" },
-    { title: "Analytic Trigonometry", duration: "12:45", bg: "bg-blue-100", emoji: "📐" },
-    { title: "Vectors & Polar Systems", duration: "12:45", bg: "bg-teal-100", emoji: "🧭" },
-    { title: "Limits & Continuity", duration: "22:10", bg: "bg-green-100", emoji: "∞" },
+    { title: "Functions & Analysis", duration: "18:24", img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=340&fit=crop" },
+    { title: "Trigonometric Foundations", duration: "18:24", img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&h=340&fit=crop" },
+    { title: "Analytic Trigonometry", duration: "12:45", img: "https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=600&h=340&fit=crop" },
+    { title: "Vectors & Polar Systems", duration: "12:45", img: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?w=600&h=340&fit=crop" },
+    { title: "Limits & Continuity", duration: "22:10", img: "https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=600&h=340&fit=crop" },
   ],
   Calculus: [
-    { title: "Differentiation Rules", duration: "18:24", bg: "bg-red-100", emoji: "d/dx" },
-    { title: "Derivatives & Rates", duration: "18:24", bg: "bg-orange-100", emoji: "📉" },
-    { title: "Integration Theory", duration: "12:45", bg: "bg-blue-100", emoji: "∫" },
-    { title: "Differential Equations", duration: "12:45", bg: "bg-indigo-100", emoji: "🔄" },
-    { title: "Sequences & Series", duration: "22:10", bg: "bg-green-100", emoji: "Σ" },
+    { title: "Differentiation Rules", duration: "18:24", img: "https://images.unsplash.com/photo-1635070041409-e63e783ce3c1?w=600&h=340&fit=crop" },
+    { title: "Derivatives & Rates", duration: "18:24", img: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=600&h=340&fit=crop" },
+    { title: "Integration Theory", duration: "12:45", img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&h=340&fit=crop" },
+    { title: "Differential Equations", duration: "12:45", img: "https://images.unsplash.com/photo-1553484771-371a605b060b?w=600&h=340&fit=crop" },
+    { title: "Sequences & Series", duration: "22:10", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=340&fit=crop" },
   ],
 };
 
@@ -146,21 +146,25 @@ export function Videos() {
             {/* Video grid — 2 columns */}
             <div className="grid grid-cols-2 gap-5">
               {videos.map((video) => (
-                <div key={video.title} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer">
-                  <div className={`${video.bg} h-40 relative flex items-center justify-center`}>
-                    <span className="text-5xl opacity-40">{video.emoji}</span>
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary rounded-full flex items-center justify-center opacity-90">
-                      <Play className="w-4 h-4 text-white fill-white ml-0.5" />
+                <div key={video.title} className="bg-gray-50 border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer">
+                  <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                    <img
+                      src={video.img}
+                      alt={video.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                      <Play className="w-5 h-5 text-white fill-white ml-0.5" />
                     </div>
-                    <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[11px] font-medium px-1.5 py-0.5 rounded">
+                    <div className="absolute bottom-2.5 right-2.5 bg-black/70 text-white text-[11px] font-semibold px-2 py-0.5 rounded-md">
                       {video.duration}
                     </div>
                   </div>
-                  <div className="px-4 py-3 flex items-center justify-between">
-                    <span className="text-[13px] font-semibold text-gray-900">{video.title}</span>
-                    <button className="flex items-center gap-1 text-[11px] text-primary font-medium hover:underline">
-                      <Volume2 className="w-3.5 h-3.5" /> Audio File
+                  <div className="px-4 py-4 flex items-center justify-between gap-3">
+                    <span className="text-[15px] font-bold text-gray-900 leading-snug">{video.title}</span>
+                    <button className="flex items-center gap-1.5 text-[12px] text-primary font-medium border border-primary/20 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-full transition-colors shrink-0">
+                      <Download className="w-3.5 h-3.5" /> Audio File
                     </button>
                   </div>
                 </div>
