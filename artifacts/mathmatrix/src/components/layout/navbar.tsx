@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Bell, Settings } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAccessibility } from "@/contexts/accessibility-context";
+import { AccessibilityPanel } from "@/components/layout/accessibility-panel";
 
 function LogixLogo() {
   return (
@@ -14,16 +16,10 @@ function LogixLogo() {
   );
 }
 
-function ToggleSwitch({ on = true }: { on?: boolean }) {
-  return (
-    <div className={`relative w-12 h-6 rounded-full cursor-pointer transition-colors ${on ? 'bg-primary' : 'bg-gray-300'}`}>
-      <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${on ? 'left-7' : 'left-1'}`} />
-    </div>
-  );
-}
-
 export function Navbar() {
   const [location] = useLocation();
+  const { theme, toggleTheme } = useAccessibility();
+  const [showPanel, setShowPanel] = useState(false);
 
   const links = [
     { href: "/dashboard", label: "Dashboard" },
@@ -38,6 +34,8 @@ export function Navbar() {
     if (href === "/dashboard") return location === "/dashboard";
     return location === href || location.startsWith(href + "/");
   };
+
+  const isDark = theme === "dark";
 
   return (
     <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-50">
@@ -72,13 +70,35 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <ToggleSwitch on={true} />
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`relative w-12 h-6 rounded-full cursor-pointer transition-colors focus:outline-none ${isDark ? "bg-primary" : "bg-gray-300"}`}
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle dark mode"
+          >
+            <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${isDark ? "left-7" : "left-1"}`} />
+          </button>
+
           <button className="text-gray-400 hover:text-gray-600 transition-colors">
             <Bell className="w-5 h-5" />
           </button>
-          <button className="text-gray-400 hover:text-gray-600 transition-colors">
-            <Settings className="w-5 h-5" />
-          </button>
+
+          {/* Settings / Accessibility panel */}
+          <div className="relative">
+            <button
+              className={`transition-colors ${showPanel ? "text-primary" : "text-gray-400 hover:text-gray-600"}`}
+              onClick={() => setShowPanel(p => !p)}
+              title="Accessibility Settings"
+              aria-label="Open accessibility settings"
+            >
+              <Settings className="w-5 h-5" />
+            </button>
+            {showPanel && (
+              <AccessibilityPanel onClose={() => setShowPanel(false)} />
+            )}
+          </div>
+
           <Avatar className="w-8 h-8">
             <AvatarFallback className="bg-primary text-white text-sm font-semibold">A</AvatarFallback>
           </Avatar>
