@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Play, Download } from "lucide-react";
+import { Play, Download, BarChart2, Lightbulb } from "lucide-react";
 import { ResourceSidebar } from "@/components/layout/resource-sidebar";
 
 const CATEGORIES = ["Algebra", "Geometry", "Pre-Calculus", "Calculus"];
@@ -36,11 +36,11 @@ const VIDEO_GRID: Record<string, { title: string; duration: string; img: string 
 };
 
 const UP_NEXT = [
-  { num: "04", title: "The Fundamental Theorem", meta: "Currently Watching • 24:15", current: true },
-  { num: "05", title: "Integration by Parts", meta: "North LinAlge • By Dr. Helena Vance", current: false },
-  { num: "06", title: "Volumes of Solids", meta: "Student's Focus • Prof. Mari Chen", current: false },
-  { num: "07", title: "Polar Coordinates", meta: "Advanced Algebra • Dr. Vance", current: false },
-  { num: "08", title: "Infinite Series Intro", meta: "Calculus 4 • Prof. Sorin J.", current: false },
+  { num: "04", title: "The Fundamental Theorem", meta: "Currently Watching • 24:15", duration: "24:15", current: true,  img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=200&h=120&fit=crop" },
+  { num: "05", title: "Integration by Parts",    meta: "Math Lesson • Dr. Helena Vance",    duration: "18:40", current: false, img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=120&fit=crop" },
+  { num: "06", title: "Volumes of Solids",        meta: "Geometry Focus • Prof. Mark Chen",  duration: "21:05", current: false, img: "https://images.unsplash.com/photo-1635070041409-e63e783ce3c1?w=200&h=120&fit=crop" },
+  { num: "07", title: "Polar Coordinates",        meta: "Advanced Algebra • Dr. Helena Vance", duration: "15:50", current: false, img: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?w=200&h=120&fit=crop" },
+  { num: "08", title: "Infinite Series Intro",   meta: "Calculus III • Prof. Sarah J.",     duration: "32:10", current: false, img: "https://images.unsplash.com/photo-1501139083538-0139583c060f?w=200&h=120&fit=crop" },
 ];
 
 export function Videos() {
@@ -60,43 +60,55 @@ export function Videos() {
             </p>
 
             {/* Featured video + up-next */}
-            <div className="flex gap-6 mb-8">
-              <div className="flex-1 bg-gray-900 rounded-2xl overflow-hidden relative" style={{ aspectRatio: "16/9", maxHeight: 320 }}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-6xl opacity-20 text-white font-serif">∫</div>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-5">
-                  <div className="flex gap-2 mb-2">
-                    <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Advanced</span>
-                    <span className="bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Calculus</span>
+            <div className="flex gap-6 mb-6">
+              {/* Featured player */}
+              <div className="flex-1 rounded-2xl overflow-hidden relative" style={{ aspectRatio: "16/9", maxHeight: 440 }}>
+                <img
+                  src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=900&h=500&fit=crop"
+                  alt="Featured"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent px-6 pb-6 pt-16">
+                  <div className="flex gap-2 mb-3">
+                    <span className="bg-sky-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">Advanced</span>
+                    <span className="bg-gray-700 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">Calculus</span>
                   </div>
-                  <h2 className="text-white font-bold text-[17px] leading-snug mb-1">
+                  <h2 className="text-white font-bold text-[22px] leading-snug mb-2">
                     Visualizing Integration: The Fundamental Theorem
                   </h2>
-                  <p className="text-white/70 text-[12px]">Session 04 • 24:15 • By Dr. Helena Vance</p>
+                  <p className="text-white/70 text-[13px]">Session 04 • 24:15 • By Dr. Helena Vance</p>
                 </div>
-                <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors border border-white/30">
-                  <Play className="w-6 h-6 text-white fill-white ml-1" />
+                <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-xl hover:bg-primary/90 transition-colors">
+                  <Play className="w-7 h-7 text-white fill-white ml-1" />
                 </button>
               </div>
 
-              <div className="w-[280px] shrink-0">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-[14px] font-bold text-gray-900">Up Next</h3>
-                  <span className="text-[11px] text-gray-400 font-medium">12 LESSONS</span>
+              {/* Up Next panel */}
+              <div className="w-[320px] shrink-0 border border-gray-200 rounded-2xl overflow-hidden">
+                <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-100">
+                  <h3 className="text-[15px] font-bold text-gray-900">Up Next</h3>
+                  <span className="text-[11px] text-gray-400 font-semibold tracking-wide">12 LESSONS</span>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col divide-y divide-gray-100">
                   {UP_NEXT.map((v) => (
                     <div
                       key={v.num}
-                      className={`flex gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors ${v.current ? "bg-gray-50 border border-gray-200" : ""}`}
+                      className={`flex gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors ${
+                        v.current ? "border-l-4 border-primary bg-gray-50" : "border-l-4 border-transparent"
+                      }`}
                     >
-                      <div className="w-16 h-10 bg-gray-800 rounded-lg flex items-center justify-center shrink-0 text-white/40 text-[10px] font-mono">
-                        {v.num}
+                      <div className="relative w-20 h-14 rounded-lg overflow-hidden shrink-0">
+                        <img src={v.img} alt={v.title} className="w-full h-full object-cover" />
+                        <div className="absolute bottom-1 right-1 bg-black/70 text-white text-[9px] font-semibold px-1 py-0.5 rounded">
+                          {v.duration}
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <div className="text-[12px] font-semibold text-gray-900 leading-snug truncate">{v.title}</div>
-                        <div className="text-[10px] text-gray-400 mt-0.5 truncate">{v.meta}</div>
+                      <div className="min-w-0 flex flex-col justify-center">
+                        <div className={`text-[12px] font-semibold leading-snug ${v.current ? "text-primary" : "text-gray-900"}`}>
+                          {v.num}. {v.title}
+                        </div>
+                        <div className="text-[11px] text-gray-400 mt-0.5 leading-snug">{v.meta}</div>
                       </div>
                     </div>
                   ))}
@@ -105,22 +117,33 @@ export function Videos() {
             </div>
 
             {/* Key Takeaways + Pro Tip */}
-            <div className="flex gap-6 mb-8">
-              <div className="flex-1 bg-[#e8f5ee] rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[13px] font-semibold text-gray-800">📋 Key Takeaways</span>
+            <div className="flex gap-5 mb-8">
+              <div className="flex-1 bg-[#f0faf5] border border-[#c8ead9] rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-7 h-7 bg-[#d0eed9] rounded-lg flex items-center justify-center">
+                    <BarChart2 className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="text-[15px] font-bold text-gray-900">Key Takeaways</span>
                 </div>
-                <ul className="space-y-2 text-[13px] text-gray-700">
-                  <li className="flex items-start gap-2"><span className="text-primary mt-0.5">•</span> Understanding the relationship between derivatives and integrals</li>
-                  <li className="flex items-start gap-2"><span className="text-primary mt-0.5">•</span> Visualizing area under the curve using Riemann sums</li>
-                  <li className="flex items-start gap-2"><span className="text-primary mt-0.5">•</span> Practical applications in physics and engineering</li>
+                <ul className="space-y-3 text-[13px] text-gray-700">
+                  {[
+                    "Understanding the relationship between derivatives and integrals.",
+                    "Visualizing area under the curve using Riemann sums.",
+                    "Practical applications in physics and engineering.",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div className="w-64 bg-[#f0eef8] rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[13px] font-semibold text-gray-800">💡 Pro Tip</span>
+              <div className="w-72 bg-[#f3f0fc] border border-[#d9d0f5] rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <Lightbulb className="w-5 h-5 text-violet-500" />
+                  <span className="text-[15px] font-bold text-gray-900">Pro Tip</span>
                 </div>
-                <p className="text-[13px] text-gray-700 italic leading-relaxed">
+                <p className="text-[13px] text-violet-700 italic leading-relaxed">
                   "Always visualize the infinitesimal change before jumping into the algebraic manipulation. The geometry holds the truth."
                 </p>
               </div>

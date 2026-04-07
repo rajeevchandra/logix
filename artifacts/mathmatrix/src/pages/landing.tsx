@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
-import { ArrowRight, Play, BookOpen, Brain, Zap, Globe, Mail, Share2, AtSign } from "lucide-react";
+import { ArrowRight, Play, BookOpen, Brain, Zap } from "lucide-react";
 
 const FEATURES = [
   {
@@ -271,74 +271,7 @@ export function Landing() {
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="bg-white border-t border-gray-100 py-16">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex gap-16">
-            {/* Left — brand */}
-            <div className="w-[300px] shrink-0">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 2L14 6V10L8 14L2 10V6L8 2Z" fill="white" fillOpacity="0.9"/>
-                    <path d="M8 5L11 7V9L8 11L5 9V7L8 5Z" fill="white" fillOpacity="0.5"/>
-                  </svg>
-                </div>
-                <span className="text-[17px] font-bold text-gray-900">Logix</span>
-              </div>
-              <p className="text-[13px] text-gray-500 leading-relaxed mb-6">
-                Pioneering the next generation of mathematical education through precision, clarity, and interactive digital design.
-              </p>
-              <div className="flex items-center gap-2">
-                {[Globe, AtSign, Share2, Mail].map((Icon, i) => (
-                  <button key={i} className="w-8 h-8 border border-gray-200 rounded-lg flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary/30 transition-colors">
-                    <Icon className="w-3.5 h-3.5" />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Right — link columns */}
-            <div className="flex-1 grid grid-cols-3 gap-8">
-              {[
-                {
-                  heading: "LEARNING",
-                  links: ["Dashboard", "Resources", "Live Tutoring", "Study Groups"],
-                },
-                {
-                  heading: "COMPANY",
-                  links: ["About Us", "Research", "Careers", "Contact"],
-                },
-                {
-                  heading: "SUPPORT",
-                  links: ["Citations", "Community", "Status", "Security"],
-                },
-              ].map(col => (
-                <div key={col.heading}>
-                  <div className="text-[11px] font-bold text-gray-900 tracking-widest uppercase mb-4">{col.heading}</div>
-                  <div className="flex flex-col gap-2.5">
-                    {col.links.map(link => (
-                      <a key={link} href="#" className="text-[14px] text-gray-700 hover:text-gray-900 transition-colors">
-                        {link}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="border-t border-gray-100 mt-12 pt-6 flex items-center justify-between">
-            <span className="text-[12px] text-gray-400">© 2026 Logix. All rights reserved.</span>
-            <div className="flex items-center gap-5">
-              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(item => (
-                <a key={item} href="#" className="text-[12px] text-gray-500 hover:text-gray-800 transition-colors">{item}</a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
+

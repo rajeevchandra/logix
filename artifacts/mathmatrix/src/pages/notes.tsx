@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "wouter";
 import { ResourceSidebar } from "@/components/layout/resource-sidebar";
-import { Download, BookOpen, FileText, Lightbulb } from "lucide-react";
+import { Download, BookOpen } from "lucide-react";
 
 const SUBJECT_TABS = ["Algebra", "Geometry", "Pre-Calculus", "Calculus"];
 
@@ -175,73 +175,61 @@ export function Notes() {
           <ResourceSidebar />
 
           <div className="flex-1 min-w-0">
-            {/* Page header */}
-            <div className="mb-1">
-              <p className="text-[12px] text-gray-400 font-medium uppercase tracking-wider mb-1">Curriculum Resources</p>
-              <h1 className="text-2xl font-bold text-gray-900 mb-1.5">Study Notes &amp; Cheat Sheets</h1>
-              <p className="text-gray-500 text-[14px] mb-8 max-w-2xl">
+            {/* Hero banner */}
+            <div className="bg-primary rounded-2xl px-10 py-10 mb-10 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, white 0%, transparent 60%)" }} />
+              <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-3">Curriculum Resources</p>
+              <h1 className="text-[36px] font-extrabold text-white leading-tight mb-4">Study Notes &amp; Cheat Sheets</h1>
+              <p className="text-white/70 text-[15px] max-w-xl leading-relaxed">
                 Master complex topics with our library of curated guides. From fundamental theories to advanced
                 problem-solving techniques, everything you need is just a click away.
               </p>
             </div>
 
-            {/* Recently Viewed + Quick Tip row */}
+            {/* Recently Viewed + Quick Tips row */}
+            <div className="mb-3">
+              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">Recently Viewed</p>
+            </div>
             <div className="grid grid-cols-3 gap-5 mb-10">
               {/* Recently viewed card */}
-              <div className="col-span-2">
-                <h2 className="text-[13px] font-bold text-gray-700 mb-3">Recently Viewed</h2>
-                <div className="border border-gray-200 rounded-2xl p-5 flex gap-5 items-start bg-white shadow-sm hover:shadow-md transition-shadow">
-                  <div className="bg-primary/10 text-primary w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                    <FileText className="w-6 h-6" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[11px] font-bold text-primary uppercase tracking-wider mb-0.5">Calculus</div>
-                    <h3 className="text-[15px] font-bold text-gray-900 mb-1 leading-tight">
-                      Multivariable Integrals &amp; Vector Fields
-                    </h3>
-                    <p className="text-[12px] text-gray-500 mb-4 leading-relaxed">
-                      Comprehensive breakdown of Green's Theorem and Stokes' Theorem with visual 3D derivations.
-                    </p>
-                    <div className="flex gap-2">
-                      <button className="bg-primary text-white text-[12px] font-semibold px-4 py-2 rounded-xl hover:bg-primary/90 transition-colors flex items-center gap-1.5">
-                        <Download className="w-3.5 h-3.5" /> Download PDF
-                      </button>
-                      <button className="border border-gray-200 text-gray-600 text-[12px] font-semibold px-4 py-2 rounded-xl hover:bg-gray-50 transition-colors">
-                        Preview
-                      </button>
-                    </div>
+              <div className="col-span-2 border border-gray-100 rounded-2xl p-5 flex gap-5 items-start bg-white shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-[180px] h-[140px] rounded-xl overflow-hidden shrink-0">
+                  <img
+                    src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=280&fit=crop"
+                    alt="Multivariable Integrals"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex-1 min-w-0 py-1">
+                  <span className="inline-block bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-3">Calculus</span>
+                  <h3 className="text-[20px] font-extrabold text-gray-900 mb-2 leading-tight">
+                    Multivariable Integrals &amp; Vector Fields
+                  </h3>
+                  <p className="text-[13px] text-gray-500 mb-5 leading-relaxed">
+                    Comprehensive breakdown of Green's Theorem and Stokes' Theorem with visual 3D derivations.
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <button className="bg-primary text-white text-[13px] font-semibold px-5 py-2.5 rounded-xl hover:bg-primary/90 transition-colors flex items-center gap-2">
+                      <Download className="w-4 h-4" /> Download PDF
+                    </button>
+                    <button className="flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:underline">
+                      <BookOpen className="w-4 h-4" /> Preview
+                    </button>
                   </div>
                 </div>
               </div>
 
-              {/* Quick Tip sidebar */}
-              <div>
-                <h2 className="text-[13px] font-bold text-gray-700 mb-3">Quick Tip</h2>
-                <div className="flex flex-col gap-3">
-                  {[
-                    {
-                      label: "Euler's Identity Mastery",
-                      desc: "Short-form cheat sheet for complex analysis fundamentals.",
-                    },
-                    {
-                      subject: "Geometry",
-                      label: "Non-Euclidean Postulates",
-                      desc: "Visual guides for hyperbolic and elliptic spatial proofs.",
-                    },
-                  ].map((tip, i) => (
-                    <div key={i} className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
-                      <div className="flex items-start gap-2">
-                        <Lightbulb className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
-                        <div>
-                          {tip.subject && (
-                            <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">{tip.subject}</div>
-                          )}
-                          <div className="text-[13px] font-bold text-gray-800 mb-0.5">{tip.label}</div>
-                          <div className="text-[11px] text-gray-500 leading-relaxed">{tip.desc}</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              {/* Quick Tip cards */}
+              <div className="flex flex-col gap-4">
+                <div className="bg-[#f3f0fc] rounded-2xl p-5 flex-1">
+                  <p className="text-[10px] font-bold text-violet-500 uppercase tracking-widest mb-2">Quick Tip</p>
+                  <h4 className="text-[16px] font-bold text-gray-900 mb-1.5">Euler's Identity Mastery</h4>
+                  <p className="text-[12px] text-gray-500 leading-relaxed">Short-form cheat sheet for complex analysis fundamentals.</p>
+                </div>
+                <div className="bg-[#e8f4fd] rounded-2xl p-5 flex-1">
+                  <p className="text-[10px] font-bold text-sky-500 uppercase tracking-widest mb-2">Geometry</p>
+                  <h4 className="text-[16px] font-bold text-gray-900 mb-1.5">Non-Euclidean Postulates</h4>
+                  <p className="text-[12px] text-gray-500 leading-relaxed">Visual guides for hyperbolic and elliptic spatial proofs.</p>
                 </div>
               </div>
             </div>
