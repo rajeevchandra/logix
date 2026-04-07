@@ -1,30 +1,165 @@
 import React, { useState } from "react";
 import { ResourceSidebar } from "@/components/layout/resource-sidebar";
-import { Download, FileText, BookOpen } from "lucide-react";
+import { Download, BookOpen } from "lucide-react";
 
 const SUBJECT_TABS = ["Algebra", "Geometry", "Pre-Calculus", "Calculus"];
 
-const NOTES_BY_SUBJECT: Record<string, { unit: string; title: string; desc: string; pages: string; size: string; date: string; type: string }[]> = {
+interface NoteUnit {
+  unit: string;
+  title: string;
+  desc: string;
+  size: string;
+  date: string;
+}
+
+const NOTES_BY_SUBJECT: Record<string, NoteUnit[]> = {
   Algebra: [
-    { unit: "Unit 1", title: "Linear Foundations", desc: "Comprehensive guide covering slope-intercept form, linear equations, and graphing fundamentals.", pages: "24 pages", size: "PDF, 2.1 MB", date: "Mar 10, 2026", type: "CORE 101" },
-    { unit: "Unit 2", title: "Systems & Matrices", desc: "Deep dive into substitution, elimination methods, and matrix operations.", pages: "31 pages", size: "PDF, 3.4 MB", date: "Mar 12, 2026", type: "CORE 101" },
-    { unit: "Unit 3", title: "Quadratics & Polynomials", desc: "Factoring, quadratic formula, and graphing parabolas with full worked examples.", pages: "28 pages", size: "PDF, 2.8 MB", date: "Mar 14, 2026", type: "ALGEBRA II" },
-    { unit: "Unit 4", title: "Functions & Graphs", desc: "Domain, range, function transformations, and composite functions.", pages: "22 pages", size: "PDF, 2.3 MB", date: "Mar 16, 2026", type: "ALGEBRA II" },
-    { unit: "Unit 5", title: "Exponents & Radicals", desc: "This comprehensive study guide covers: Laws of Exponents, Simplifying Radicals, and Exponential Growth.", pages: "26 pages", size: "PDF, 4.2 MB", date: "Mar 16, 2026", type: "ALGEBRA II" },
+    {
+      unit: "Unit 1 - Linear Foundations",
+      title: "Linear Foundations",
+      desc: "This comprehensive study guide covers the core pillars of algebra: Solving for X, Slope & Intercepts, and Linear Inequalities.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 2 - Systems & Matrices",
+      title: "Systems & Matrices",
+      desc: "This comprehensive study guide covers: Substitution vs. Elimination, Matrix Operations, and Real-world Systems.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 3 - Quadratics & Polynomials",
+      title: "Quadratics & Polynomials",
+      desc: "This comprehensive study guide covers: Factoring Basics, The Quadratic Formula, and Graphing Parabolas.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 4 - Functions & Graphs",
+      title: "Functions & Graphs",
+      desc: "This comprehensive study guide covers: Domain & Range, Function Transformations, and Composite Functions.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 5 - Exponents & Radicals",
+      title: "Exponents & Radicals",
+      desc: "This comprehensive study guide covers: Laws of Exponents, Simplifying Radicals, and Exponential Growth.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
   ],
   Geometry: [
-    { unit: "Unit 1", title: "Euclidean Geometry", desc: "Points, lines, planes, angles, and fundamental geometric proofs.", pages: "30 pages", size: "PDF, 3.1 MB", date: "Mar 10, 2026", type: "CORE 201" },
-    { unit: "Unit 2", title: "Triangles & Congruence", desc: "Triangle congruence theorems, similarity, and right triangle trigonometry.", pages: "35 pages", size: "PDF, 3.8 MB", date: "Mar 12, 2026", type: "CORE 201" },
-    { unit: "Unit 3", title: "Circles & Area", desc: "Circle theorems, arc length, sector area, and inscribed angles.", pages: "27 pages", size: "PDF, 2.9 MB", date: "Mar 14, 2026", type: "ADV 201" },
+    {
+      unit: "Unit 1 - Points, Lines, & Angles",
+      title: "Points, Lines, & Angles",
+      desc: "This comprehensive study guide covers: Segment & Angle Addition, Parallel Lines & Transversals, and Intro to Logic & Proofs.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 2 - Congruence & Triangles",
+      title: "Congruence & Triangles",
+      desc: "This comprehensive study guide covers: SSS, SAS, & ASA Criteria, Isosceles & Equilateral Logic, and Coordinate Triangle Proofs.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 3 - Similarity & Right Triangles",
+      title: "Similarity & Right Triangles",
+      desc: "This comprehensive study guide covers: Dilation & Scale Factors, Pythagorean Theorem in 3D, and Special Right Triangles.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 4 - Circles & Polygons",
+      title: "Circles & Polygons",
+      desc: "This comprehensive study guide covers: Arcs, Chords, & Tangents, Interior & Exterior Angles, and Area of Sectors & Segments.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 5 - Volume & Measurement",
+      title: "Volume & Measurement",
+      desc: "This comprehensive study guide covers: Surface Area of Prisms, Volume of Spheres & Cones, and Density & Modeling Applications.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
   ],
   "Pre-Calculus": [
-    { unit: "Unit 1", title: "Trigonometric Functions", desc: "Sine, cosine, tangent — unit circle, identities, and transformations.", pages: "34 pages", size: "PDF, 3.6 MB", date: "Mar 10, 2026", type: "CORE 301" },
-    { unit: "Unit 2", title: "Analytic Trigonometry", desc: "Sum/difference formulas, double angle, and solving trig equations.", pages: "28 pages", size: "PDF, 3.0 MB", date: "Mar 12, 2026", type: "CORE 301" },
+    {
+      unit: "Unit 1 - Trigonometric Functions",
+      title: "Trigonometric Functions",
+      desc: "This comprehensive study guide covers: The Unit Circle & Radians, Sine/Cosine Graphs, and Inverse Trig Functions.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 2 - Analytic Trigonometry",
+      title: "Analytic Trigonometry",
+      desc: "This comprehensive study guide covers: Verifying Identities, Sum & Difference Formulas, and Solving Trig Equations.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 3 - Vectors & Polar Curves",
+      title: "Vectors & Polar Curves",
+      desc: "This comprehensive study guide covers: Vector Dot Products, Polar to Rectangular Conversion, and Graphing Rose & Limacon Curves.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 4 - Conic Sections",
+      title: "Conic Sections",
+      desc: "This comprehensive study guide covers: Parabolas & Ellipses, Hyperbolas in Standard Form, and Parametric Equations.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 5 - Intro to Limits",
+      title: "Intro to Limits",
+      desc: "This comprehensive study guide covers: Estimating Limits Graphically, Algebraic Limit Laws, and Continuity vs. Discontinuity.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
   ],
   Calculus: [
-    { unit: "Unit 1", title: "Limits & Continuity", desc: "Definition of a limit, limit laws, and the formal epsilon-delta approach.", pages: "32 pages", size: "PDF, 3.5 MB", date: "Mar 10, 2026", type: "ADV 401" },
-    { unit: "Unit 2", title: "Derivatives", desc: "Definition of the derivative, differentiation rules, and applications.", pages: "40 pages", size: "PDF, 4.8 MB", date: "Mar 12, 2026", type: "ADV 401" },
-    { unit: "Unit 3", title: "Integration", desc: "Antiderivatives, Fundamental Theorem of Calculus, and integration techniques.", pages: "44 pages", size: "PDF, 5.2 MB", date: "Mar 14, 2026", type: "ADV 401" },
+    {
+      unit: "Unit 1 - Differentiation Rules",
+      title: "Differentiation Rules",
+      desc: "This comprehensive study guide covers: Power, Product, & Quotient Rules, The Chain Rule Masterclass, and Implicit Differentiation.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 2 - Applications of Derivatives",
+      title: "Applications of Derivatives",
+      desc: "This comprehensive study guide covers: Related Rates Problems, Optimization & Max/Min, and Mean Value Theorem.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 3 - Integration Foundations",
+      title: "Integration Foundations",
+      desc: "This comprehensive study guide covers: Riemann Sums & Area, Fundamental Theorem of Calc, and U-Substitution Technique.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 4 - Differential Equations",
+      title: "Differential Equations",
+      desc: "This comprehensive study guide covers: Slope Fields & Visualizing Flow, Separation of Variables, and Exponential Growth & Decay.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
+    {
+      unit: "Unit 5 - Applications of Integration",
+      title: "Applications of Integration",
+      desc: "This comprehensive study guide covers: Area Between Two Curves, Volume: Disk & Washer Methods, and Arc Length & Surface Area.",
+      size: "PDF, 4.2 MB",
+      date: "Mar 16, 2026",
+    },
   ],
 };
 
@@ -37,12 +172,14 @@ export function Notes() {
       <div className="max-w-[1440px] mx-auto px-8 pt-10">
         <div className="flex gap-10">
           <ResourceSidebar />
+
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold text-gray-900 mb-1">Study Notes</h1>
             <p className="text-gray-500 text-[14px] mb-8">
               Curated, easy-to-digest summaries of complex topics for quick revision and deep review.
             </p>
 
+            {/* Subject tabs */}
             <div className="border-b border-gray-200 mb-8">
               <div className="flex gap-6">
                 {SUBJECT_TABS.map(tab => (
@@ -59,34 +196,40 @@ export function Notes() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
+            {/* 2-column note card grid */}
+            <div className="grid grid-cols-2 gap-5">
               {notes.map((note) => (
-                <div key={note.title} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
-                  <div className="w-14 h-16 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-                    <div className="text-center">
-                      <BookOpen className="w-6 h-6 text-primary mx-auto mb-0.5" />
-                      <div className="text-[9px] font-bold text-primary">MATH</div>
+                <div key={note.unit} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4">
+                  {/* Top: math icon + unit name */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-16 bg-primary/5 border border-primary/15 rounded-xl flex flex-col items-center justify-center shrink-0">
+                      <BookOpen className="w-5 h-5 text-primary mb-0.5" />
+                      <div className="text-[8px] font-bold text-primary tracking-wider">MATHEMATICS</div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">{note.unit}</div>
+                      <h3 className="text-[15px] font-bold text-gray-900 leading-snug">{note.title}</h3>
                     </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{note.type}</span>
-                      <span className="text-[11px] text-gray-400">{note.unit}</span>
+
+                  {/* Description */}
+                  <p className="text-[13px] text-gray-500 leading-relaxed">{note.desc}</p>
+
+                  {/* Bottom: download + notes buttons */}
+                  <div className="flex items-end justify-between pt-1">
+                    <div>
+                      <div className="text-[12px] font-semibold text-gray-700 mb-0.5">Worksheet</div>
+                      <div className="text-[11px] text-gray-400">{note.size}</div>
+                      <div className="text-[11px] text-gray-400">Updated: {note.date}</div>
                     </div>
-                    <h3 className="text-[15px] font-bold text-gray-900 mb-1">{note.title}</h3>
-                    <p className="text-[13px] text-gray-500 mb-3 leading-relaxed">{note.desc}</p>
-                    <div className="flex items-center gap-4 text-[12px] text-gray-400">
-                      <div className="flex items-center gap-1"><FileText className="w-3.5 h-3.5" /> {note.pages}</div>
-                      <span>•</span>
-                      <span>Updated: {note.date}</span>
+                    <div className="flex gap-2">
+                      <button className="flex items-center gap-1.5 bg-primary text-white text-[12px] font-semibold px-3.5 py-2 rounded-xl hover:bg-primary/90 transition-colors">
+                        <Download className="w-3.5 h-3.5" /> Download
+                      </button>
+                      <button className="text-[12px] font-semibold px-3.5 py-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors">
+                        Notes
+                      </button>
                     </div>
-                  </div>
-                  <div className="shrink-0 text-right">
-                    <div className="text-[12px] font-medium text-gray-500 mb-2">Worksheet</div>
-                    <div className="text-[11px] text-gray-400 mb-3">{note.size}</div>
-                    <button className="flex items-center gap-1.5 bg-primary/10 text-primary text-[12px] font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/20 transition-colors">
-                      <Download className="w-3.5 h-3.5" /> Download
-                    </button>
                   </div>
                 </div>
               ))}
