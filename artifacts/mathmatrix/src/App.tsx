@@ -4,24 +4,35 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { MainLayout } from "@/components/layout/main-layout";
+import { MarketingLayout } from "@/components/layout/marketing-layout";
+import { Landing } from "@/pages/landing";
+import { Login } from "@/pages/login";
+import { Signup } from "@/pages/signup";
 import { Home } from "@/pages/home";
 import { Videos } from "@/pages/videos";
 import { Tutoring } from "@/pages/tutoring";
 import { Quizzes } from "@/pages/quizzes";
+import { Notes } from "@/pages/notes";
+import { Flashcards } from "@/pages/flashcards";
+import { StudyGroups } from "@/pages/study-groups";
 
 const queryClient = new QueryClient();
 
 function Router() {
   return (
-    <MainLayout>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/videos" component={Videos} />
-        <Route path="/quizzes" component={Quizzes} />
-        <Route path="/tutoring" component={Tutoring} />
-        <Route component={NotFound} />
-      </Switch>
-    </MainLayout>
+    <Switch>
+      <Route path="/" component={() => <MarketingLayout><Landing /></MarketingLayout>} />
+      <Route path="/login" component={() => <Login />} />
+      <Route path="/signup" component={() => <Signup />} />
+      <Route path="/dashboard" component={() => <MainLayout><Home /></MainLayout>} />
+      <Route path="/videos" component={() => <MainLayout><Videos /></MainLayout>} />
+      <Route path="/quizzes" component={() => <MainLayout><Quizzes /></MainLayout>} />
+      <Route path="/tutoring" component={() => <MainLayout><Tutoring /></MainLayout>} />
+      <Route path="/notes" component={() => <MainLayout><Notes /></MainLayout>} />
+      <Route path="/flashcards" component={() => <MainLayout><Flashcards /></MainLayout>} />
+      <Route path="/study-groups" component={() => <MainLayout><StudyGroups /></MainLayout>} />
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 

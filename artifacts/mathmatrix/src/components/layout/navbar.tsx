@@ -26,16 +26,16 @@ export function Navbar() {
   const [location] = useLocation();
 
   const links = [
-    { href: "/", label: "Dashboard" },
+    { href: "/dashboard", label: "Dashboard" },
     { href: "/tutoring", label: "Schedule" },
     { href: "/videos", label: "Resources" },
     { href: "/study-groups", label: "Study Groups" },
   ];
 
-  const isResourcesActive = location === "/videos" || location === "/quizzes" || location.startsWith("/resources");
+  const isResourcesActive = location === "/videos" || location === "/quizzes" || location === "/notes" || location === "/flashcards";
   const isActive = (href: string) => {
     if (href === "/videos") return isResourcesActive;
-    if (href === "/") return location === "/";
+    if (href === "/dashboard") return location === "/dashboard";
     return location === href || location.startsWith(href + "/");
   };
 
