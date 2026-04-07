@@ -1,147 +1,168 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Play, Pause, Volume2, Maximize, Clock, Bookmark, FileText, Compass, MoreHorizontal } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
+import { Play, Download } from "lucide-react";
+import { ResourceSidebar } from "@/components/layout/resource-sidebar";
 
-const VIDEOS = [
-  { id: 1, title: "Fundamentals of Tensor Calculus", subject: "Calculus", duration: "45:20", color: "bg-primary/20 text-primary border-primary/30" },
-  { id: 2, title: "Eigenvectors and Eigenvalues", subject: "Linear Algebra", duration: "32:15", color: "bg-primary/20 text-primary border-primary/30" },
-  { id: 3, title: "Non-Euclidean Geometry Intro", subject: "Geometry", duration: "28:40", color: "bg-primary/20 text-primary border-primary/30" },
-  { id: 4, title: "Bayesian Inference Models", subject: "Statistics", duration: "51:10", color: "bg-primary/20 text-primary border-primary/30" },
+const UP_NEXT = [
+  { num: "04", title: "The Fundamental Theorem", meta: "Currently Watching • 24:15", current: true },
+  { num: "05", title: "Integration by Parts", meta: "North LinAlge • By Dr. Helena Vance", current: false },
+  { num: "06", title: "Volumes of Solids", meta: "Student's Focus • Prof. Mari Chen", current: false },
+  { num: "07", title: "Polar Coordinates", meta: "Advanced Algebra • Dr. Vance", current: false },
+  { num: "08", title: "Infinite Series Intro", meta: "Calculus 4 • Prof. Sorin J.", current: false },
+];
+
+const CATEGORIES = ["Algebra", "Geometry", "Pre-Calculus", "Calculus"];
+
+const VIDEO_GRID = [
+  {
+    title: "Foundations of Algebra",
+    duration: "18:24",
+    bg: "bg-amber-100",
+    emoji: "🧮",
+  },
+  {
+    title: "Linear Functions",
+    duration: "12:45",
+    bg: "bg-blue-100",
+    emoji: "📈",
+  },
+  {
+    title: "Systems of Equations",
+    duration: "12:45",
+    bg: "bg-indigo-100",
+    emoji: "🔢",
+  },
+  {
+    title: "Polynomials & Factoring",
+    duration: "12:45",
+    bg: "bg-teal-100",
+    emoji: "✏️",
+  },
+  {
+    title: "Quadratic Functions",
+    duration: "32:11",
+    bg: "bg-green-100",
+    emoji: "🟢",
+  },
 ];
 
 export function Videos() {
+  const [activeCategory, setActiveCategory] = useState("Algebra");
+
   return (
-    <div className="min-h-screen bg-background pt-[183px] pb-24 text-foreground selection:bg-primary/30">
-      <div className="max-w-[1440px] mx-auto pl-[341px] pr-[87px]">
-        <div className="mb-[62px]">
-          <h1 className="text-[36px] font-bold tracking-tight mb-4 text-white">Math Video Lessons</h1>
-          <p className="text-[16px] text-muted-foreground w-[490px] leading-[24px]">
-            Deep dive into complex mathematical concepts through cinematic educational modules and expert-led derivations.
-          </p>
-        </div>
+    <div className="bg-white min-h-screen pb-20">
+      <div className="max-w-[1440px] mx-auto px-8 pt-10">
+        <div className="flex gap-10">
+          <ResourceSidebar />
 
-        <div className="w-[1012px] flex gap-[12px]">
-          {/* Main Featured Video Area (629px) */}
-          <div className="w-[629px] flex flex-col gap-6">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="relative w-full h-[354px] rounded-2xl overflow-hidden bg-card border border-white/5 shadow-2xl group"
-            >
-              {/* Mock Video Player Surface */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background flex items-center justify-center">
-                <div className="w-[80px] h-[80px] rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 text-white cursor-pointer hover:bg-white/20 hover:scale-105 transition-all">
-                  <Play className="w-8 h-8 ml-1 fill-white" />
-                </div>
-              </div>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-3xl font-bold text-gray-900 mb-1">Math Video Lessons</h1>
+            <p className="text-gray-500 text-[14px] mb-8 max-w-lg">
+              Deep dive into complex mathematical concepts through cinematic educational modules and expert-led derivations.
+            </p>
 
-              {/* OVERLAY CONTROLS BAR (Always visible as per Figma) */}
-              <div className="absolute bottom-0 left-0 right-0 h-[191px] bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6">
-                <div className="flex gap-2 mb-3">
-                  <Badge variant="outline" className="bg-white/10 text-white border-white/20 backdrop-blur-md rounded-md px-2 py-0.5 text-xs font-medium">Calculus</Badge>
-                  <Badge variant="outline" className="bg-primary/20 text-primary border-primary/30 backdrop-blur-md rounded-md px-2 py-0.5 text-xs font-medium">Session 04</Badge>
+            <div className="flex gap-6 mb-8">
+              <div className="flex-1 bg-gray-900 rounded-2xl overflow-hidden relative" style={{ aspectRatio: "16/9", maxHeight: 320 }}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-6xl opacity-30">∫</div>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-1">Visualizing Integration: The Fundamental Theorem</h2>
-                <div className="text-sm text-white/70 mb-4">Session 04 • 24:15 • By Dr. Helena Vance</div>
-                
-                <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden cursor-pointer mb-2">
-                  <div className="h-full bg-primary w-[45%] relative">
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                  <div className="flex gap-2 mb-2">
+                    <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Advanced</span>
+                    <span className="bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Calculus</span>
                   </div>
+                  <h2 className="text-white font-bold text-[17px] leading-snug mb-1">
+                    Visualizing Integration: The Fundamental Theorem
+                  </h2>
+                  <p className="text-white/70 text-[12px]">Session 04 • 24:15 • By Dr. Helena Vance</p>
                 </div>
-                <div className="flex items-center justify-between text-xs text-white/70">
-                  <div className="flex items-center gap-4">
-                    <Pause className="w-4 h-4 text-white hover:text-primary cursor-pointer" />
-                    <Volume2 className="w-4 h-4 text-white hover:text-primary cursor-pointer" />
-                    <span className="font-medium">10:52 / 24:15</span>
-                  </div>
-                  <Maximize className="w-4 h-4 text-white hover:text-primary cursor-pointer" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Video Details Cards */}
-            <div className="flex gap-4">
-              <div className="w-[306px] h-[220px] bg-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center gap-2 mb-4 text-white">
-                  <Compass className="w-5 h-5 text-primary" />
-                  <h3 className="font-semibold text-lg">Key Concepts</h3>
-                </div>
-                <ul className="space-y-3">
-                  <li className="text-sm text-muted-foreground flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    Geometric interpretation of definite integrals
-                  </li>
-                  <li className="text-sm text-muted-foreground flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    Area accumulation functions
-                  </li>
-                  <li className="text-sm text-muted-foreground flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    The relationship between differentiation and integration
-                  </li>
-                </ul>
+                <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors border border-white/30">
+                  <Play className="w-6 h-6 text-white fill-white ml-1" />
+                </button>
               </div>
 
-              <div className="w-[306px] h-[220px] bg-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center gap-2 mb-4 text-white">
-                  <FileText className="w-5 h-5 text-primary" />
-                  <h3 className="font-semibold text-lg">Related Topics</h3>
+              <div className="w-[280px] shrink-0">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-[14px] font-bold text-gray-900">Up Next</h3>
+                  <span className="text-[11px] text-gray-400 font-medium">12 LESSONS</span>
                 </div>
-                <ul className="space-y-3">
-                  <li className="text-sm text-muted-foreground flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    Riemann Sums Demystified
-                  </li>
-                  <li className="text-sm text-muted-foreground flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    Properties of Definite Integrals
-                  </li>
-                  <li className="text-sm text-muted-foreground flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    Applications: Physics & Geometry
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar (382px) */}
-          <div className="w-[382px] bg-card border border-white/5 rounded-2xl p-6 h-fit">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="font-bold text-lg text-white">Up Next</h3>
-              <a href="#" className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">View All</a>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              {VIDEOS.map((video, idx) => (
-                <motion.div 
-                  key={video.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="flex gap-4 p-3 -mx-3 rounded-xl hover:bg-white/5 transition-all cursor-pointer group"
-                >
-                  <div className="relative w-[128px] h-[72px] bg-background border border-white/10 rounded-lg overflow-hidden flex-shrink-0">
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
-                      <Play className="w-6 h-6 fill-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="flex flex-col gap-2">
+                  {UP_NEXT.map((v) => (
+                    <div
+                      key={v.num}
+                      className={`flex gap-3 p-2.5 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors ${v.current ? "bg-gray-50 border border-gray-200" : ""}`}
+                    >
+                      <div className="w-16 h-10 bg-gray-800 rounded-lg flex items-center justify-center shrink-0 text-white/40 text-[10px] font-mono">
+                        {v.num}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[12px] font-semibold text-gray-900 leading-snug truncate">{v.title}</div>
+                        <div className="text-[10px] text-gray-400 mt-0.5 truncate">{v.meta}</div>
+                      </div>
                     </div>
-                    <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-black/80 backdrop-blur-md text-[10px] font-medium text-white rounded">
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-6 mb-8">
+              <div className="flex-1 bg-[#e8f5ee] rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[13px] font-semibold text-gray-800">📋 Key Takeaways</span>
+                </div>
+                <ul className="space-y-2 text-[13px] text-gray-700">
+                  <li className="flex items-start gap-2"><span className="text-primary mt-0.5">•</span> Understanding the relationship between derivatives and integrals</li>
+                  <li className="flex items-start gap-2"><span className="text-primary mt-0.5">•</span> Visualizing area under the curve using Riemann sums</li>
+                  <li className="flex items-start gap-2"><span className="text-primary mt-0.5">•</span> Practical applications in physics and engineering</li>
+                </ul>
+              </div>
+              <div className="w-64 bg-[#f0eef8] rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-[13px] font-semibold text-gray-800">💡 Pro Tip</span>
+                </div>
+                <p className="text-[13px] text-gray-700 italic leading-relaxed">
+                  "Always visualize the infinitesimal change before jumping into the algebraic manipulation. The geometry holds the truth."
+                </p>
+              </div>
+            </div>
+
+            <div className="border-b border-gray-200 mb-6">
+              <div className="flex gap-6">
+                {CATEGORIES.map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`text-[14px] font-medium pb-3 border-b-2 transition-colors ${
+                      activeCategory === cat
+                        ? "border-primary text-primary"
+                        : "border-transparent text-gray-500 hover:text-gray-800"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-5">
+              {VIDEO_GRID.map((video) => (
+                <div key={video.title} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+                  <div className={`${video.bg} h-40 relative flex items-center justify-center`}>
+                    <span className="text-5xl opacity-40">{video.emoji}</span>
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary rounded-full flex items-center justify-center opacity-90">
+                      <Play className="w-4 h-4 text-white fill-white ml-0.5" />
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[11px] font-medium px-1.5 py-0.5 rounded">
                       {video.duration}
                     </div>
                   </div>
-                  <div className="flex flex-col justify-center flex-1 min-w-0 py-1">
-                    <h4 className="font-semibold text-[14px] leading-snug text-white line-clamp-2 mb-2 group-hover:text-primary transition-colors">{video.title}</h4>
-                    <Badge variant="outline" className={`w-fit text-[10px] px-2 py-0 h-5 font-medium rounded-md ${video.color}`}>
-                      {video.subject}
-                    </Badge>
+                  <div className="px-4 py-3 flex items-center justify-between">
+                    <span className="text-[13px] font-semibold text-gray-900">{video.title}</span>
+                    <button className="flex items-center gap-1 text-[11px] text-primary font-medium hover:underline">
+                      <Download className="w-3.5 h-3.5" /> Audio File
+                    </button>
                   </div>
-                  <div className="pt-2">
-                    <MoreHorizontal className="w-4 h-4 text-muted-foreground hover:text-white" />
-                  </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

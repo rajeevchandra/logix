@@ -7,6 +7,7 @@ import { MainLayout } from "@/components/layout/main-layout";
 import { Home } from "@/pages/home";
 import { Videos } from "@/pages/videos";
 import { Tutoring } from "@/pages/tutoring";
+import { Quizzes } from "@/pages/quizzes";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/videos" component={Videos} />
+        <Route path="/quizzes" component={Quizzes} />
         <Route path="/tutoring" component={Tutoring} />
         <Route component={NotFound} />
       </Switch>
@@ -24,11 +26,6 @@ function Router() {
 }
 
 function App() {
-  // Enforce dark mode by default for this cinematic aesthetic
-  if (typeof document !== 'undefined') {
-    document.documentElement.classList.add('dark');
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
