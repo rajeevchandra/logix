@@ -64,7 +64,7 @@ export function Tutoring() {
           {[
             { icon: Video, label: "Sessions This Week", value: "5", key: "sessions" },
             { icon: Users, label: "Available Tutors", value: "48", key: "tutors" },
-            { icon: Users, label: "Available Tutors", value: "48", key: "duration" },
+            { icon: Clock, label: "Avg Session Duration", value: "48m", key: "duration" },
           ].map(({ icon: Icon, label, value, key }) => (
             <div key={key} className="bg-white border border-gray-200 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
               <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
@@ -183,7 +183,7 @@ export function Tutoring() {
               Join over 15,000 students in live derivation sessions. Ask questions in real-time and solve problems together.
             </p>
             <div className="flex items-center gap-2 mt-4">
-              {["SC", "MJ", "AD", "+m"].map((u, i) => (
+              {["SC", "MJ", "JD", "+12k"].map((u, i) => (
                 <div key={i} className={`w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold ${
                   i === 0 ? "bg-red-400 text-white" :
                   i === 1 ? "bg-blue-400 text-white" :
@@ -202,8 +202,8 @@ export function Tutoring() {
               <span className="text-white text-[12px] font-medium">Live Chat</span>
             </div>
             {[
-              { user: "alex_12", msg: "Just solved the derivative of tan^2 x! 🎉" },
-              { user: "MATHWIZ", msg: "That's the generalized equation that makes sense..." },
+              { user: "Alex_M", msg: "Wait, why does the derivative of ln(x) work that way?" },
+              { user: "MathWiz", msg: "Think about the chain rule application on e^y = x..." },
             ].map((m) => (
               <div key={m.user} className="bg-white/10 rounded-lg p-2.5 mb-2">
                 <div className="text-white/60 text-[10px] mb-1">{m.user}</div>

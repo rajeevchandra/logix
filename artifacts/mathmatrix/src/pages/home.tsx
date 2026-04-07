@@ -174,7 +174,7 @@ export function Home() {
 
           <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <h2 className="text-[15px] font-semibold text-gray-900 mb-1">Your Badges</h2>
-            <p className="text-[12px] text-gray-400 mb-4">Just 4 unlocked</p>
+            <p className="text-[12px] text-gray-400 mb-4">3 of 6 unlocked</p>
             <div className="grid grid-cols-3 gap-3">
               {[
                 { icon: Star, color: "bg-amber-100 text-amber-500" },

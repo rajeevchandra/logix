@@ -328,6 +328,15 @@ export function Landing() {
               ))}
             </div>
           </div>
+
+          <div className="border-t border-gray-100 mt-12 pt-6 flex items-center justify-between">
+            <span className="text-[12px] text-gray-400">© 2026 Logix. All rights reserved.</span>
+            <div className="flex items-center gap-5">
+              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(item => (
+                <a key={item} href="#" className="text-[12px] text-gray-500 hover:text-gray-800 transition-colors">{item}</a>
+              ))}
+            </div>
+          </div>
         </div>
       </footer>
     </div>
