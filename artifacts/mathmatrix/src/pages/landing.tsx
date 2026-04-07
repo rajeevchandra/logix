@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "wouter";
-import { ArrowRight, Play, BookOpen, Brain, Zap, Check } from "lucide-react";
+import { ArrowRight, Play, BookOpen, Brain, Zap, Globe, Mail, Share2, AtSign } from "lucide-react";
 
 const FEATURES = [
   {
@@ -26,29 +26,6 @@ const FEATURES = [
     title: "AI Flashcards",
     desc: "Spaced-repetition systems designed to lock formulas and concepts into your permanent memory.",
     align: "left",
-  },
-];
-
-const CURRICULUM = [
-  {
-    tag: "CORE 101",
-    title: "Algebra",
-    desc: "Master everything from linear foundations to quadratic mastery. Our curriculum simplifies complex abstractions and builds the logical framework needed for higher-level mathematics.",
-  },
-  {
-    tag: "ADV 201",
-    title: "Geometry",
-    desc: "Explore the world of shapes, proofs, and spatial reasoning. From Euclidean fundamentals to transformational geometry, build your visual mathematical intuition.",
-  },
-  {
-    tag: "CORE 301",
-    title: "Pre-Calculus",
-    desc: "The bridge to higher mathematics. Master the behavior of complex functions, analytic trigonometry, and the algebraic foundations of sequences and series.",
-  },
-  {
-    tag: "ADV 401",
-    title: "Calculus",
-    desc: "The mathematics of change. Journey beyond static equations into limits, derivatives, and integrals to understand the dynamic forces that shape our universe.",
   },
 ];
 
@@ -105,9 +82,6 @@ const ACCESSIBILITY = [
 ];
 
 export function Landing() {
-  const [activeTab, setActiveTab] = useState("Algebra");
-  const activeCurriculum = CURRICULUM.find(c => c.title === activeTab) || CURRICULUM[0];
-
   return (
     <div>
       {/* HERO */}
@@ -187,39 +161,30 @@ export function Landing() {
       </section>
 
       {/* CURRICULUM */}
-      <section id="curriculum" className="py-24 bg-white">
+      <section id="curriculum" className="py-24 bg-gray-50">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-center mb-4">
-            <div className="inline-block text-[11px] font-bold text-primary uppercase tracking-widest border border-primary/20 bg-primary/5 px-3 py-1 rounded-full mb-6">
-              CORE STANDARDS
-            </div>
-            <h2 className="text-[36px] font-bold text-gray-900 mb-4">Our Curriculum</h2>
-            <p className="text-[16px] text-gray-500 max-w-lg mx-auto">
-              Comprehensive curriculum aligned with core standards, providing students with the tools to excel in the classroom and beyond.
-            </p>
-          </div>
+          <h2 className="text-[40px] font-extrabold text-gray-900 mb-3">Our Curriculum</h2>
+          <p className="text-[16px] text-gray-500 mb-12 max-w-md">
+            Comprehensive curriculum aligned with core standards, providing students with the tools to excel in the classroom and beyond.
+          </p>
 
-          <div className="flex justify-center gap-3 mt-10 mb-10">
-            {CURRICULUM.map(c => (
-              <button
-                key={c.title}
-                onClick={() => setActiveTab(c.title)}
-                className={`flex flex-col items-center px-8 py-4 rounded-2xl border transition-all ${
-                  activeTab === c.title
-                    ? "bg-primary/5 border-primary/30 text-primary"
-                    : "border-gray-200 text-gray-500 hover:border-gray-300"
-                }`}
-              >
-                <div className={`text-[10px] font-bold mb-1 ${activeTab === c.title ? "text-primary" : "text-gray-400"}`}>{c.tag}</div>
-                <div className="text-[14px] font-semibold">{c.title}</div>
-              </button>
+          <div className="grid grid-cols-4 gap-5">
+            {[
+              { tag: "CORE 101", title: "Algebra",      sub: "Linear systems &\nabstractions" },
+              { tag: "ADV 201",  title: "Geometry",     sub: "Spatial logic & proof\nsystems" },
+              { tag: "CORE 301", title: "Precalculus",  sub: "Function theory &\ntrigonometry" },
+              { tag: "ADV 401",  title: "Calculus",     sub: "Differentiation & rate\nanalysis" },
+            ].map(c => (
+              <div key={c.title} className="rounded-3xl p-7 flex flex-col" style={{ background: "#163d2e", minHeight: 260 }}>
+                <div className="mb-auto">
+                  <span className="inline-block bg-white text-gray-800 text-[10px] font-bold px-3 py-1 rounded-full mb-8 tracking-wide">{c.tag}</span>
+                </div>
+                <div>
+                  <h3 className="text-[28px] font-extrabold text-white mb-2">{c.title}</h3>
+                  <p className="text-[13px] text-green-200/80 leading-snug whitespace-pre-line">{c.sub}</p>
+                </div>
+              </div>
             ))}
-          </div>
-
-          <div className="bg-gray-50 rounded-3xl p-10 max-w-2xl mx-auto text-center border border-gray-200">
-            <div className="text-[11px] font-bold text-primary uppercase tracking-widest mb-3">{activeCurriculum.tag}</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">{activeCurriculum.title}</h3>
-            <p className="text-[15px] text-gray-500 leading-relaxed">{activeCurriculum.desc}</p>
           </div>
         </div>
       </section>
@@ -290,17 +255,81 @@ export function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-primary">
-        <div className="max-w-[800px] mx-auto px-6 text-center">
-          <h2 className="text-[40px] font-extrabold text-white mb-4">Ready to Elevate Your Math Skills?</h2>
-          <p className="text-[16px] text-green-100 mb-10">
-            Join thousands of students achieving mastery through our structured learning platform. Sign up today and get your first week free.
-          </p>
-          <Link href="/signup" className="inline-block bg-white text-primary font-bold text-[16px] px-10 py-4 rounded-xl hover:bg-green-50 transition-colors">
-            Sign Up Free
-          </Link>
+      <section className="py-20 bg-white px-6">
+        <div className="max-w-[1200px] mx-auto">
+          <div
+            className="rounded-3xl px-10 py-20 text-center"
+            style={{ background: "linear-gradient(135deg, #0d2e20 0%, #0f3828 50%, #0a1e2e 100%)" }}
+          >
+            <h2 className="text-[40px] font-extrabold text-white mb-4">Ready to Elevate Your Math Skills?</h2>
+            <p className="text-[16px] text-gray-300 mb-10 max-w-xl mx-auto">
+              Join thousands of students achieving mastery through our structured learning platform. Sign up today and get your first week free.
+            </p>
+            <Link href="/signup" className="inline-block bg-primary text-white font-bold text-[16px] px-10 py-4 rounded-full hover:bg-primary/90 transition-colors">
+              Sign Up Free
+            </Link>
+          </div>
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="bg-white border-t border-gray-100 py-16">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="flex gap-16">
+            {/* Left — brand */}
+            <div className="w-[300px] shrink-0">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2L14 6V10L8 14L2 10V6L8 2Z" fill="white" fillOpacity="0.9"/>
+                    <path d="M8 5L11 7V9L8 11L5 9V7L8 5Z" fill="white" fillOpacity="0.5"/>
+                  </svg>
+                </div>
+                <span className="text-[17px] font-bold text-gray-900">Logix</span>
+              </div>
+              <p className="text-[13px] text-gray-500 leading-relaxed mb-6">
+                Pioneering the next generation of mathematical education through precision, clarity, and interactive digital design.
+              </p>
+              <div className="flex items-center gap-2">
+                {[Globe, AtSign, Share2, Mail].map((Icon, i) => (
+                  <button key={i} className="w-8 h-8 border border-gray-200 rounded-lg flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary/30 transition-colors">
+                    <Icon className="w-3.5 h-3.5" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Right — link columns */}
+            <div className="flex-1 grid grid-cols-3 gap-8">
+              {[
+                {
+                  heading: "LEARNING",
+                  links: ["Dashboard", "Resources", "Live Tutoring", "Study Groups"],
+                },
+                {
+                  heading: "COMPANY",
+                  links: ["About Us", "Research", "Careers", "Contact"],
+                },
+                {
+                  heading: "SUPPORT",
+                  links: ["Citations", "Community", "Status", "Security"],
+                },
+              ].map(col => (
+                <div key={col.heading}>
+                  <div className="text-[11px] font-bold text-gray-900 tracking-widest uppercase mb-4">{col.heading}</div>
+                  <div className="flex flex-col gap-2.5">
+                    {col.links.map(link => (
+                      <a key={link} href="#" className="text-[14px] text-gray-700 hover:text-gray-900 transition-colors">
+                        {link}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
