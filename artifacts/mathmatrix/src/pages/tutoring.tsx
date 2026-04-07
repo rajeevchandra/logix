@@ -64,7 +64,7 @@ export function Tutoring() {
           {[
             { icon: Video, label: "Sessions This Week", value: "5", key: "sessions" },
             { icon: Users, label: "Available Tutors", value: "48", key: "tutors" },
-            { icon: Clock, label: "Avg Session Duration", value: "48m", key: "duration" },
+            { icon: Users, label: "Available Tutors", value: "48", key: "duration" },
           ].map(({ icon: Icon, label, value, key }) => (
             <div key={key} className="bg-white border border-gray-200 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
               <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
