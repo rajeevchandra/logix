@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "wouter";
 import { ResourceSidebar } from "@/components/layout/resource-sidebar";
 import { Check, X, Clock, ChevronRight, ArrowLeft, Trophy } from "lucide-react";
 
@@ -534,9 +535,9 @@ export function Quizzes() {
                       </div>
                     </div>
 
-                    <button className="mt-5 w-full border border-gray-200 text-gray-600 text-[12px] font-semibold py-2.5 rounded-xl hover:bg-gray-50 transition-colors">
+                    <Link href="/progress" className="mt-5 w-full border border-gray-200 text-gray-600 text-[12px] font-semibold py-2.5 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center">
                       View Detailed Report
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

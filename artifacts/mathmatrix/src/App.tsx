@@ -16,6 +16,7 @@ import { Quizzes } from "@/pages/quizzes";
 import { Notes } from "@/pages/notes";
 import { Flashcards } from "@/pages/flashcards";
 import { StudyGroups } from "@/pages/study-groups";
+import { Progress } from "@/pages/progress";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/notes" component={() => <MainLayout><Notes /></MainLayout>} />
       <Route path="/flashcards" component={() => <MainLayout><Flashcards /></MainLayout>} />
       <Route path="/study-groups" component={() => <MainLayout><StudyGroups /></MainLayout>} />
+      <Route path="/progress" component={() => <MainLayout><Progress /></MainLayout>} />
       <Route component={NotFound} />
     </Switch>
   );

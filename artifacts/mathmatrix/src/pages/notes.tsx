@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "wouter";
 import { ResourceSidebar } from "@/components/layout/resource-sidebar";
-import { Download, BookOpen } from "lucide-react";
+import { Download, BookOpen, FileText, Lightbulb } from "lucide-react";
 
 const SUBJECT_TABS = ["Algebra", "Geometry", "Pre-Calculus", "Calculus"];
 
@@ -174,10 +175,79 @@ export function Notes() {
           <ResourceSidebar />
 
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">Study Notes</h1>
-            <p className="text-gray-500 text-[14px] mb-8">
-              Curated, easy-to-digest summaries of complex topics for quick revision and deep review.
-            </p>
+            {/* Page header */}
+            <div className="mb-1">
+              <p className="text-[12px] text-gray-400 font-medium uppercase tracking-wider mb-1">Curriculum Resources</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-1.5">Study Notes &amp; Cheat Sheets</h1>
+              <p className="text-gray-500 text-[14px] mb-8 max-w-2xl">
+                Master complex topics with our library of curated guides. From fundamental theories to advanced
+                problem-solving techniques, everything you need is just a click away.
+              </p>
+            </div>
+
+            {/* Recently Viewed + Quick Tip row */}
+            <div className="grid grid-cols-3 gap-5 mb-10">
+              {/* Recently viewed card */}
+              <div className="col-span-2">
+                <h2 className="text-[13px] font-bold text-gray-700 mb-3">Recently Viewed</h2>
+                <div className="border border-gray-200 rounded-2xl p-5 flex gap-5 items-start bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <div className="bg-primary/10 text-primary w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                    <FileText className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[11px] font-bold text-primary uppercase tracking-wider mb-0.5">Calculus</div>
+                    <h3 className="text-[15px] font-bold text-gray-900 mb-1 leading-tight">
+                      Multivariable Integrals &amp; Vector Fields
+                    </h3>
+                    <p className="text-[12px] text-gray-500 mb-4 leading-relaxed">
+                      Comprehensive breakdown of Green's Theorem and Stokes' Theorem with visual 3D derivations.
+                    </p>
+                    <div className="flex gap-2">
+                      <button className="bg-primary text-white text-[12px] font-semibold px-4 py-2 rounded-xl hover:bg-primary/90 transition-colors flex items-center gap-1.5">
+                        <Download className="w-3.5 h-3.5" /> Download PDF
+                      </button>
+                      <button className="border border-gray-200 text-gray-600 text-[12px] font-semibold px-4 py-2 rounded-xl hover:bg-gray-50 transition-colors">
+                        Preview
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Tip sidebar */}
+              <div>
+                <h2 className="text-[13px] font-bold text-gray-700 mb-3">Quick Tip</h2>
+                <div className="flex flex-col gap-3">
+                  {[
+                    {
+                      label: "Euler's Identity Mastery",
+                      desc: "Short-form cheat sheet for complex analysis fundamentals.",
+                    },
+                    {
+                      subject: "Geometry",
+                      label: "Non-Euclidean Postulates",
+                      desc: "Visual guides for hyperbolic and elliptic spatial proofs.",
+                    },
+                  ].map((tip, i) => (
+                    <div key={i} className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                      <div className="flex items-start gap-2">
+                        <Lightbulb className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
+                        <div>
+                          {tip.subject && (
+                            <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">{tip.subject}</div>
+                          )}
+                          <div className="text-[13px] font-bold text-gray-800 mb-0.5">{tip.label}</div>
+                          <div className="text-[11px] text-gray-500 leading-relaxed">{tip.desc}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Notes Library heading */}
+            <h2 className="text-[17px] font-bold text-gray-900 mb-6">Notes Library</h2>
 
             {/* Subject tabs */}
             <div className="border-b border-gray-200 mb-8">
