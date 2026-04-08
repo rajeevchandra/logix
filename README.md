@@ -31,9 +31,9 @@ scripts/              # Utility scripts (TypeScript)
 - **Node.js:** v24
 - **TypeScript:** v5.9
 - **Frontend:** React, Vite, Tailwind CSS
-- **API:** OpenAPI 3.1, Orval, Express 5
+
 - **Database:** PostgreSQL, Drizzle ORM, drizzle-zod
-- **Validation:** Zod v4
+- 
 
 
 ## Running the Frontend Only (MathMatrix)
